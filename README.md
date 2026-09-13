@@ -5,6 +5,8 @@ Notion, Linear) for a departing employee's access footprint, revokes it,
 reassigns their open work to a teammate, and re-verifies each revocation
 actually took effect before the run is reported complete.
 
+## 🎥 [WATCH THE DEMO VIDEO](https://drive.google.com/file/d/1IPG8vV9Hy9Fp8Qy8p6yY0eb_849HUH-9/view?usp=sharing)
+
 **Live app:** https://offboardingagent.vercel.app/
 **email:** geniussaxena007@gmail.com
 **password:** Admin@1234
