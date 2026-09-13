@@ -114,6 +114,7 @@ export default function EmployeesPage() {
                         padding: "2px 8px",
                         borderRadius: 999,
                         background: statusColor[e.status],
+                        color: "#000",
                       }}
                     >
                       {e.status}
