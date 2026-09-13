@@ -40,7 +40,6 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
   const [loading, setLoading] = useState(true);
   const [allEmployees, setAllEmployees] = useState<Employee[]>([]);
 
-  const [environment, setEnvironment] = useState<"sandbox" | "production">("production");
   const [run, setRun] = useState<OffboardingRun | null>(null);
   const [reassignments, setReassignments] = useState<ReassignmentAction[]>([]);
   const [starting, setStarting] = useState(false);
@@ -62,7 +61,7 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
     setStarting(true);
     setRunError(null);
     try {
-      const newRun = await startOffboardingRun(employee.id, environment);
+      const newRun = await startOffboardingRun(employee.id, "production");
       setRun(newRun);
       setReassignments(await listReassignments(newRun.id));
     } catch (err) {
@@ -179,15 +178,6 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
 
         <h3 style={{ marginBottom: 8 }}>Offboarding</h3>
         <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 16 }}>
-          <select
-            value={environment}
-            onChange={(e) => setEnvironment(e.target.value as "sandbox" | "production")}
-            disabled={!!run}
-            style={{ padding: 8 }}
-          >
-            <option value="production">production</option>
-            <option value="sandbox">sandbox</option>
-          </select>
           <button onClick={handleStartOffboarding} disabled={starting || !!run} style={{ padding: "8px 14px" }}>
             {starting ? "Starting..." : run ? "Run started" : "Start Offboarding"}
           </button>
