@@ -1,0 +1,154 @@
+{
+  "organization": "Acme Demo Co",
+  "domain": "acme-demo.com",
+  "employees": [
+    {
+      "full_name": "Daniel Osei",
+      "company_email": "daniel.osei@acme-demo.com",
+      "department": "Engineering — Payments",
+      "manager_email": null,
+      "status": "active",
+      "identities": {
+        "github": { "external_handle": "danielosei", "external_id": "gh_10234" },
+        "slack": { "external_handle": "@daniel.osei", "external_id": "U01DANIEL1" },
+        "notion": { "external_handle": "Daniel Osei", "external_id": "notion_usr_daniel" },
+        "linear": { "external_handle": "daniel.osei", "external_id": "lin_usr_daniel" }
+      },
+      "access_grants": [
+        { "system": "github", "grant_type": "org_member", "resource_name": "acme-demo", "role": "admin", "external_id": "acme-demo" },
+        { "system": "github", "grant_type": "team_membership", "resource_name": "payments-team", "role": "maintainer", "external_id": "acme-demo/payments-team" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#payments-eng", "role": "member", "external_id": "C_PAYMENTS_ENG" },
+        { "system": "slack", "grant_type": "admin_role", "resource_name": "acme-demo workspace", "role": "workspace_admin", "external_id": "T_ACME_DEMO" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Payments Team Space", "role": "editor", "external_id": "notion_page_payments_space" },
+        { "system": "linear", "grant_type": "workspace_member", "resource_name": "Payments project", "role": "admin", "external_id": "lin_team_payments" }
+      ],
+      "work_items": [
+        { "system": "linear", "item_type": "issue", "title": "Review Q3 payments roadmap", "status": "in_progress", "skill_tags": ["planning", "payments"], "external_id": "lin_issue_001", "url": "https://linear.app/acme-demo/issue/PAY-1" }
+      ]
+    },
+    {
+      "full_name": "Aisha Bello",
+      "company_email": "aisha.bello@acme-demo.com",
+      "department": "Engineering — Platform",
+      "manager_email": null,
+      "status": "active",
+      "identities": {
+        "github": { "external_handle": "aishabello", "external_id": "gh_10239" },
+        "slack": { "external_handle": "@aisha.bello", "external_id": "U01AISHA06" },
+        "notion": { "external_handle": "Aisha Bello", "external_id": "notion_usr_aisha" },
+        "linear": { "external_handle": "aisha.bello", "external_id": "lin_usr_aisha" }
+      },
+      "access_grants": [
+        { "system": "github", "grant_type": "org_member", "resource_name": "acme-demo", "role": "admin", "external_id": "acme-demo" },
+        { "system": "github", "grant_type": "team_membership", "resource_name": "platform-team", "role": "maintainer", "external_id": "acme-demo/platform-team" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#incidents", "role": "member", "external_id": "C_INCIDENTS" },
+        { "system": "slack", "grant_type": "admin_role", "resource_name": "acme-demo workspace", "role": "workspace_admin", "external_id": "T_ACME_DEMO" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Platform Team Space", "role": "editor", "external_id": "notion_page_platform_space" },
+        { "system": "linear", "grant_type": "workspace_member", "resource_name": "Platform project", "role": "admin", "external_id": "lin_team_platform" }
+      ],
+      "work_items": [
+        { "system": "linear", "item_type": "issue", "title": "Plan Q3 infra cost reduction", "status": "in_progress", "skill_tags": ["planning", "infra"], "external_id": "lin_issue_002", "url": "https://linear.app/acme-demo/issue/PLAT-1" }
+      ]
+    },
+    {
+      "full_name": "Priya Nair",
+      "company_email": "priya.nair@acme-demo.com",
+      "department": "Engineering — Payments",
+      "manager_email": "daniel.osei@acme-demo.com",
+      "status": "departing",
+      "identities": {
+        "github": { "external_handle": "priyanair", "external_id": "gh_10235" },
+        "slack": { "external_handle": "@priya.nair", "external_id": "U01PRIYA02" },
+        "notion": { "external_handle": "Priya Nair", "external_id": "notion_usr_priya" },
+        "linear": { "external_handle": "priya.nair", "external_id": "lin_usr_priya" }
+      },
+      "access_grants": [
+        { "system": "github", "grant_type": "org_member", "resource_name": "acme-demo", "role": "member", "external_id": "acme-demo" },
+        { "system": "github", "grant_type": "repo_access", "resource_name": "payments-api", "role": "write", "external_id": "acme-demo/payments-api" },
+        { "system": "github", "grant_type": "repo_access", "resource_name": "billing-worker", "role": "write", "external_id": "acme-demo/billing-worker" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#payments-eng", "role": "member", "external_id": "C_PAYMENTS_ENG" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#incidents", "role": "member", "external_id": "C_INCIDENTS" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Payments Runbook", "role": "owner", "external_id": "notion_page_payments_runbook" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Q3 Refund Postmortem", "role": "owner", "external_id": "notion_page_refund_postmortem" },
+        { "system": "linear", "grant_type": "workspace_member", "resource_name": "Payments project", "role": "member", "external_id": "lin_team_payments" }
+      ],
+      "work_items": [
+        { "system": "github", "item_type": "pull_request", "title": "Fix idempotency key collision in refund flow", "status": "open", "skill_tags": ["payments", "idempotency"], "external_id": "gh_pr_101", "url": "https://github.com/acme-demo/payments-api/pull/101" },
+        { "system": "github", "item_type": "pull_request", "title": "Add retry backoff to billing-worker", "status": "open", "skill_tags": ["payments", "reliability"], "external_id": "gh_pr_102", "url": "https://github.com/acme-demo/billing-worker/pull/12" },
+        { "system": "linear", "item_type": "issue", "title": "Investigate duplicate charge reports", "status": "open", "skill_tags": ["payments", "billing"], "external_id": "lin_issue_010", "url": "https://linear.app/acme-demo/issue/PAY-10" },
+        { "system": "linear", "item_type": "issue", "title": "Migrate refund service to new queue", "status": "in_progress", "skill_tags": ["payments", "messaging"], "external_id": "lin_issue_011", "url": "https://linear.app/acme-demo/issue/PAY-11" }
+      ]
+    },
+    {
+      "full_name": "Maria Santos",
+      "company_email": "maria.santos@acme-demo.com",
+      "department": "Engineering — Payments",
+      "manager_email": "daniel.osei@acme-demo.com",
+      "status": "active",
+      "identities": {
+        "github": { "external_handle": "mariasantos", "external_id": "gh_10236" },
+        "slack": { "external_handle": "@maria.santos", "external_id": "U01MARIA03" },
+        "notion": { "external_handle": "Maria Santos", "external_id": "notion_usr_maria" },
+        "linear": { "external_handle": "maria.santos", "external_id": "lin_usr_maria" }
+      },
+      "access_grants": [
+        { "system": "github", "grant_type": "org_member", "resource_name": "acme-demo", "role": "member", "external_id": "acme-demo" },
+        { "system": "github", "grant_type": "repo_access", "resource_name": "payments-api", "role": "write", "external_id": "acme-demo/payments-api" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#payments-eng", "role": "member", "external_id": "C_PAYMENTS_ENG" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Payments Team Space", "role": "editor", "external_id": "notion_page_payments_space" },
+        { "system": "linear", "grant_type": "workspace_member", "resource_name": "Payments project", "role": "member", "external_id": "lin_team_payments" }
+      ],
+      "work_items": [
+        { "system": "linear", "item_type": "issue", "title": "Add fraud-score field to transactions table", "status": "open", "skill_tags": ["payments", "fraud"], "external_id": "lin_issue_020", "url": "https://linear.app/acme-demo/issue/PAY-20" },
+        { "system": "github", "item_type": "issue", "title": "Refactor refund service currency rounding", "status": "open", "skill_tags": ["payments", "billing"], "external_id": "gh_issue_201", "url": "https://github.com/acme-demo/payments-api/issues/201" }
+      ]
+    },
+    {
+      "full_name": "James Lee",
+      "company_email": "james.lee@acme-demo.com",
+      "department": "Engineering — Platform",
+      "manager_email": "aisha.bello@acme-demo.com",
+      "status": "active",
+      "identities": {
+        "github": { "external_handle": "jameslee", "external_id": "gh_10237" },
+        "slack": { "external_handle": "@james.lee", "external_id": "U01JAMES04" },
+        "notion": { "external_handle": "James Lee", "external_id": "notion_usr_james" },
+        "linear": { "external_handle": "james.lee", "external_id": "lin_usr_james" }
+      },
+      "access_grants": [
+        { "system": "github", "grant_type": "org_member", "resource_name": "acme-demo", "role": "member", "external_id": "acme-demo" },
+        { "system": "github", "grant_type": "repo_access", "resource_name": "infra", "role": "write", "external_id": "acme-demo/infra" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#incidents", "role": "member", "external_id": "C_INCIDENTS" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Infra Runbook", "role": "owner", "external_id": "notion_page_infra_runbook" },
+        { "system": "linear", "grant_type": "workspace_member", "resource_name": "Platform project", "role": "member", "external_id": "lin_team_platform" }
+      ],
+      "work_items": [
+        { "system": "github", "item_type": "issue", "title": "Rotate infra service credentials", "status": "open", "skill_tags": ["infra", "security"], "external_id": "gh_issue_301", "url": "https://github.com/acme-demo/infra/issues/301" },
+        { "system": "linear", "item_type": "issue", "title": "Set up autoscaling for worker pool", "status": "in_progress", "skill_tags": ["infra", "reliability"], "external_id": "lin_issue_030", "url": "https://linear.app/acme-demo/issue/PLAT-30" }
+      ]
+    },
+    {
+      "full_name": "Noah Becker",
+      "company_email": "noah.becker@acme-demo.com",
+      "department": "Engineering — Platform",
+      "manager_email": "aisha.bello@acme-demo.com",
+      "status": "active",
+      "identities": {
+        "github": { "external_handle": "noahbecker", "external_id": "gh_10240" },
+        "slack": { "external_handle": "@noah.becker", "external_id": "U01NOAH07" },
+        "notion": { "external_handle": "Noah Becker", "external_id": "notion_usr_noah" },
+        "linear": { "external_handle": "noah.becker", "external_id": "lin_usr_noah" }
+      },
+      "access_grants": [
+        { "system": "github", "grant_type": "org_member", "resource_name": "acme-demo", "role": "member", "external_id": "acme-demo" },
+        { "system": "github", "grant_type": "repo_access", "resource_name": "infra", "role": "write", "external_id": "acme-demo/infra" },
+        { "system": "slack", "grant_type": "channel_member", "resource_name": "#incidents", "role": "member", "external_id": "C_INCIDENTS" },
+        { "system": "notion", "grant_type": "page_access", "resource_name": "Platform Team Space", "role": "editor", "external_id": "notion_page_platform_space" },
+        { "system": "linear", "grant_type": "workspace_member", "resource_name": "Platform project", "role": "member", "external_id": "lin_team_platform" }
+      ],
+      "work_items": [
+        { "system": "linear", "item_type": "issue", "title": "Improve alert noise reduction for on-call", "status": "open", "skill_tags": ["infra", "reliability"], "external_id": "lin_issue_031", "url": "https://linear.app/acme-demo/issue/PLAT-31" }
+      ]
+    }
+  ]
+}
