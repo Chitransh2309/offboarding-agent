@@ -17,15 +17,31 @@ import {
   startOffboardingRun,
 } from "@/lib/api";
 
-function resourceCell(g: AccessGrant) {
+function resourceUrl(g: AccessGrant): string | null {
   if (g.system === "slack" && g.grant_type === "channel_member") {
+    return `https://slack.com/app_redirect?channel=${g.external_id}`;
+  }
+  if (g.system === "github") {
+    if (g.grant_type === "org_member") return `https://github.com/${g.external_id}`;
+    if (g.grant_type === "repo_access") return `https://github.com/${g.external_id}`;
+    if (g.grant_type === "team_membership") {
+      const [org, slug] = g.external_id.split("/");
+      return org && slug ? `https://github.com/orgs/${org}/teams/${slug}` : null;
+    }
+  }
+  if (g.system === "notion" && g.grant_type === "page_access") {
+    return `https://www.notion.so/${g.external_id.replace(/-/g, "")}`;
+  }
+  // Linear's workspace_member grant has no linkable URL — that needs the
+  // workspace's urlKey slug, which we don't currently fetch/store anywhere.
+  return null;
+}
+
+function resourceCell(g: AccessGrant) {
+  const url = resourceUrl(g);
+  if (url) {
     return (
-      <a
-        href={`https://slack.com/app_redirect?channel=${g.external_id}`}
-        target="_blank"
-        rel="noreferrer"
-        style={{ textDecoration: "underline" }}
-      >
+      <a href={url} target="_blank" rel="noreferrer" style={{ textDecoration: "underline" }}>
         {g.resource_name ?? g.external_id}
       </a>
     );
