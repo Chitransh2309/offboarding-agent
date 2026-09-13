@@ -209,6 +209,13 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
             <p style={{ marginBottom: 8 }}>
               <b>Run status:</b> {run.status}
             </p>
+            {run.notion_report_url && (
+              <p style={{ marginBottom: 8 }}>
+                <a href={run.notion_report_url} target="_blank" rel="noreferrer" style={{ textDecoration: "underline" }}>
+                  View Notion report &rarr;
+                </a>
+              </p>
+            )}
             {run.narrative && (
               <p style={{ background: "#f7fafc", border: "1px solid #e2e8f0", padding: 12, borderRadius: 6, marginBottom: 16 }}>
                 {run.narrative}

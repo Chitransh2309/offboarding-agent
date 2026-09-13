@@ -9,6 +9,7 @@ import {
   getAuthorizeUrl,
   isLoggedIn,
   listIntegrations,
+  setNotionReportSettings,
 } from "@/lib/api";
 
 const SYSTEMS: { key: SystemType; label: string; description: string }[] = [
@@ -46,6 +47,46 @@ function Banner() {
     );
   }
   return null;
+}
+
+function NotionReportSettingsForm() {
+  const [pageId, setPageId] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  async function handleSave() {
+    if (!pageId.trim()) return;
+    setSaving(true);
+    setSaved(false);
+    try {
+      await setNotionReportSettings(pageId.trim());
+      setSaved(true);
+    } catch {
+      alert("Could not save — check the page id and that Notion is connected.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div style={{ marginTop: 8, paddingTop: 8, borderTop: "1px solid #edf2f7" }}>
+      <p style={{ fontSize: 12, color: "#4a5568", marginBottom: 6 }}>
+        Parent page for auto-generated offboarding reports (share this page with the Notion
+        integration first):
+      </p>
+      <div style={{ display: "flex", gap: 6 }}>
+        <input
+          value={pageId}
+          onChange={(e) => setPageId(e.target.value)}
+          placeholder="Notion page ID"
+          style={{ flex: 1, padding: 6, fontSize: 12 }}
+        />
+        <button onClick={handleSave} disabled={saving} style={{ padding: "6px 10px", fontSize: 12 }}>
+          {saving ? "Saving..." : saved ? "Saved" : "Save"}
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default function IntegrationsPage() {
@@ -144,6 +185,7 @@ export default function IntegrationsPage() {
                         ? "Reconnect"
                         : "Connect"}
                   </button>
+                  {key === "notion" && connection && <NotionReportSettingsForm />}
                 </div>
               );
             })}

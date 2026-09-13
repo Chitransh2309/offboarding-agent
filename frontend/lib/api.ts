@@ -105,6 +105,13 @@ export function provisionSandbox(ttl_minutes = 120, scenario_prompt?: string) {
   });
 }
 
+export function setNotionReportSettings(reports_parent_page_id: string) {
+  return request<void>("/integrations/notion/report-settings", {
+    method: "PATCH",
+    body: JSON.stringify({ reports_parent_page_id }),
+  });
+}
+
 // --- Employees ---
 
 export interface Employee {
@@ -178,6 +185,7 @@ export interface OffboardingRun {
     error_message: string | null;
   }[];
   narrative: string | null;
+  notion_report_url: string | null;
 }
 
 export function startOffboardingRun(employee_id: string, environment: "sandbox" | "production") {
