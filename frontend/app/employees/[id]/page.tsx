@@ -32,8 +32,11 @@ function resourceUrl(g: AccessGrant): string | null {
   if (g.system === "notion" && g.grant_type === "page_access") {
     return `https://www.notion.so/${g.external_id.replace(/-/g, "")}`;
   }
-  // Linear's workspace_member grant has no linkable URL — that needs the
-  // workspace's urlKey slug, which we don't currently fetch/store anywhere.
+  if (g.system === "linear" && g.grant_type === "workspace_member") {
+    // external_id is the workspace's urlKey (slug), not the raw org id —
+    // see linear_client.py's list_access for why that's safe here.
+    return `https://linear.app/${g.external_id}`;
+  }
   return null;
 }
 
