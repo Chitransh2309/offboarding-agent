@@ -6,14 +6,15 @@ reassigns their open work to a teammate, and re-verifies each revocation
 actually took effect before the run is reported complete.
 
 **Live app:** https://offboardingagent.vercel.app/
+**email:** geniussaxena007@gmail.com
+**password:** Admin@1234
 
 ## Status
 
 Backend is implemented end-to-end (models, migrations, auth, integration
 clients, execution/sync/skill-tagging services, API routers, tests).
 Frontend covers auth, integration connect flows, the employee directory,
-and the offboarding trigger + audit UI. See `docs/Implementation_Plan.pdf`
-for the design this was built from.
+and the offboarding trigger + audit UI.
 
 ## Architecture
 
