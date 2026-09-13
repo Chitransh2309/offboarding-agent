@@ -31,6 +31,12 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    // Bypasses ngrok's free-tier browser-warning interstitial, which
+    // otherwise intercepts background fetch() calls (no page navigation
+    // to click "Visit Site" through) and returns an HTML page with no
+    // CORS headers — surfaces in the browser as a CORS error, not what
+    // it actually is.
+    "ngrok-skip-browser-warning": "true",
     ...(options.headers as Record<string, string>),
   };
   if (token) headers["Authorization"] = `Bearer ${token}`;
