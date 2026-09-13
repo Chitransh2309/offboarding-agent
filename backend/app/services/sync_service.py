@@ -59,9 +59,16 @@ def _upsert_access_grant(db: Session, organization_id: uuid.UUID, employee_id: u
     else:
         grant.resource_name = data.resource_name
         grant.role = data.role
-        if grant.status == GrantStatus.REVOKED:
-            # Reappeared on a fresh sync after being marked revoked — treat
-            # as active again rather than silently masking a re-grant.
+        if grant.status in (GrantStatus.REVOKED, GrantStatus.REVOKE_FAILED):
+            # Live re-check found it still there. REVOKED means it reappeared
+            # after being removed — a re-grant. REVOKE_FAILED means a past
+            # revoke attempt didn't take (exactly what verify_status =
+            # STILL_PRESENT already told us) — without this branch that grant
+            # stays stuck at REVOKE_FAILED forever: invisible to the "active
+            # grants" query every future offboarding run reads from, and to
+            # the employee detail page's active-grants filter, even though
+            # it's still genuinely present. Either way, a live rediscovery
+            # is ground truth and overrides the stale status.
             grant.status = GrantStatus.ACTIVE
     grant.last_synced_at = now
 

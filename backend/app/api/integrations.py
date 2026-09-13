@@ -162,7 +162,13 @@ def get_authorize_url(
             # the OAuth connect must itself be a workspace admin, or Linear
             # denies it the same way regardless of requested scope.
             "scope": "read,write,admin",
-            "actor": "app",
+            # actor=app cannot hold admin rights at all — Linear rejects
+            # the admin scope outright for app-attributed actions ("app
+            # users cannot request admin scopes"), found when reconnecting
+            # after adding the scope above. actor=user attributes every
+            # action to the connecting account instead, so admin is only
+            # as valid as that account's own real Linear permissions.
+            "actor": "user",
             "state": state,
         }
         url = f"https://linear.app/oauth/authorize?{urlencode(params)}"
