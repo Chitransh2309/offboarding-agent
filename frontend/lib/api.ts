@@ -120,6 +120,7 @@ export interface AccessGrant {
   id: string;
   system: SystemType;
   grant_type: string;
+  external_id: string;
   resource_name: string | null;
   role: string | null;
   status: "active" | "revoked" | "revoke_failed";
@@ -147,6 +148,17 @@ export function listEmployees() {
 
 export function getEmployee(id: string) {
   return request<EmployeeDetail>(`/employees/${id}`);
+}
+
+export interface SystemResyncResult {
+  system: SystemType;
+  discovered: number;
+  linked: number;
+  skipped: number;
+}
+
+export function resyncEmployees() {
+  return request<{ results: SystemResyncResult[] }>("/employees/resync", { method: "POST" });
 }
 
 // --- Offboarding ---
@@ -177,4 +189,29 @@ export function startOffboardingRun(employee_id: string, environment: "sandbox" 
 
 export function getOffboardingRun(id: string) {
   return request<OffboardingRun>(`/offboarding/runs/${id}`);
+}
+
+// --- Reassignments ---
+
+export interface ReassignmentAction {
+  id: string;
+  work_item_id: string;
+  suggested_owner_id: string | null;
+  suggested_by: "llm" | "human";
+  justification: string | null;
+  confirmed_owner_id: string | null;
+  reassign_status: "pending" | "success" | "failed";
+  verify_status: "pending" | "verified" | "still_present" | "error";
+  error_message: string | null;
+}
+
+export function listReassignments(runId: string) {
+  return request<ReassignmentAction[]>(`/reassignments/${runId}`);
+}
+
+export function confirmReassignment(reassignmentId: string, confirmed_owner_id: string) {
+  return request<ReassignmentAction>(`/reassignments/${reassignmentId}/confirm`, {
+    method: "POST",
+    body: JSON.stringify({ confirmed_owner_id }),
+  });
 }
