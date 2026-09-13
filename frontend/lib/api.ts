@@ -112,6 +112,15 @@ export function setNotionReportSettings(reports_parent_page_id: string) {
   });
 }
 
+export interface NotionPage {
+  id: string;
+  title: string;
+}
+
+export function listNotionSharedPages() {
+  return request<NotionPage[]>("/integrations/notion/shared-pages");
+}
+
 // --- Employees ---
 
 export interface Employee {

@@ -5,10 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Nav from "@/components/Nav";
 import {
   IntegrationConnection,
+  NotionPage,
   SystemType,
   getAuthorizeUrl,
   isLoggedIn,
   listIntegrations,
+  listNotionSharedPages,
   setNotionReportSettings,
 } from "@/lib/api";
 
@@ -50,19 +52,27 @@ function Banner() {
 }
 
 function NotionReportSettingsForm() {
-  const [pageId, setPageId] = useState("");
+  const [pages, setPages] = useState<NotionPage[] | null>(null);
+  const [selected, setSelected] = useState("");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  useEffect(() => {
+    listNotionSharedPages()
+      .then(setPages)
+      .catch(() => setLoadError("Could not load pages shared with the integration."));
+  }, []);
 
   async function handleSave() {
-    if (!pageId.trim()) return;
+    if (!selected) return;
     setSaving(true);
     setSaved(false);
     try {
-      await setNotionReportSettings(pageId.trim());
+      await setNotionReportSettings(selected);
       setSaved(true);
     } catch {
-      alert("Could not save — check the page id and that Notion is connected.");
+      alert("Could not save report settings.");
     } finally {
       setSaving(false);
     }
@@ -70,21 +80,37 @@ function NotionReportSettingsForm() {
 
   return (
     <div style={{ marginTop: 8, paddingTop: 8, borderTop: "1px solid #edf2f7" }}>
-      <p style={{ fontSize: 12, color: "#4a5568", marginBottom: 6 }}>
-        Parent page for auto-generated offboarding reports (share this page with the Notion
-        integration first):
-      </p>
-      <div style={{ display: "flex", gap: 6 }}>
-        <input
-          value={pageId}
-          onChange={(e) => setPageId(e.target.value)}
-          placeholder="Notion page ID"
-          style={{ flex: 1, padding: 6, fontSize: 12 }}
-        />
-        <button onClick={handleSave} disabled={saving} style={{ padding: "6px 10px", fontSize: 12 }}>
-          {saving ? "Saving..." : saved ? "Saved" : "Save"}
-        </button>
-      </div>
+      <p style={{ fontSize: 12, color: "#4a5568", marginBottom: 6 }}>Parent page for auto-generated offboarding reports:</p>
+      {loadError ? (
+        <p style={{ fontSize: 12, color: "#c53030" }}>{loadError}</p>
+      ) : pages === null ? (
+        <p style={{ fontSize: 12, color: "#718096" }}>Loading pages...</p>
+      ) : pages.length === 0 ? (
+        <p style={{ fontSize: 12, color: "#718096" }}>
+          No pages shared with the integration yet — in Notion, open a page and share it with
+          this integration via its &quot;Connections&quot; menu, then refresh this page.
+        </p>
+      ) : (
+        <div style={{ display: "flex", gap: 6 }}>
+          <select
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+            style={{ flex: 1, padding: 6, fontSize: 12 }}
+          >
+            <option value="" disabled>
+              choose a page
+            </option>
+            {pages.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.title}
+              </option>
+            ))}
+          </select>
+          <button onClick={handleSave} disabled={saving || !selected} style={{ padding: "6px 10px", fontSize: 12 }}>
+            {saving ? "Saving..." : saved ? "Saved" : "Save"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
